@@ -32,6 +32,9 @@
       idleTimeLimit: 1200,           // 'No activity' time limit in seconds. 1200 = 20 Minutes
       idleCheckHeartbeat: 2,       // Frequency to check for idle timeouts in seconds
 
+      // optional stayLoggedIn callback to perform after stayLoggedIn button click
+      stayLoggedInCallback: false,       // set to false for no customCallback
+
       // optional custom callback to perform before logout
       customCallback: false,       // set to false for no customCallback
       // customCallback:    function () {    // define optional custom js function
@@ -161,6 +164,9 @@
             destroyWarningDialog();
             stopDialogTimer();
             startIdleTimer();
+            if (currentConfig.stayLoggedInCallback && typeof currentConfig.stayLoggedInCallback === "function") {
+              currentConfig.stayLoggedInCallback();
+            }
           }
         },
           {
